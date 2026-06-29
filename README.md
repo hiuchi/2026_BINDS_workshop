@@ -111,7 +111,7 @@ wget -P /Users/binds/workshop/ref \
 wget -P /Users/binds/workshop/ref \
   https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M39/gencode.vM39.transcripts.fa.gz
 
-nextflow pull nf-core/rnaseq -r 3.21.0
+nextflow pull nf-core/rnaseq -r 3.26.0
 
 /usr/bin/perl /Users/binds/.nextflow/assets/nf-core/rnaseq/bin/gtf2bed \
   /Users/binds/workshop/ref/gencode.vM39.chr_patch_hapl_scaff.annotation.gtf.gz \
@@ -140,7 +140,7 @@ control5,/Users/binds/workshop/fastq/SRR24350716.fastq.gz,auto
 Salmon によって遺伝子産物の定量を行います。
 ```
 nextflow run nf-core/rnaseq \
--r 3.21.0 \
+-r 3.26.0 \
 -profile docker \
 --input /Users/binds/workshop/samplesheet_rnaseq.csv \
 --transcript_fasta /Users/binds/workshop/ref/gencode.vM39.transcripts.fa.gz \
