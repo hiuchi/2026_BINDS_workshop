@@ -76,33 +76,33 @@ chr1	ENSEMBL	transcript	3172239	3172348	.	+	.	gene_id "ENSMUSG00000064842.3"; tr
 ```
 ### 3.2 各データのダウンロード（今回はスキップ）
 #### 3.2.1 FASTQ ファイルのダウンロード
-オンサイト講習会では、FASTQ ファイルは使用する Mac にあらかじめダウンロードしておきます。自分でダウンロードする場合は、[PRJNA963162](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE229320)のデータを ENA から`/Users/binds2026/workshop/fastq`にダウンロードします。
+オンサイト講習会では、FASTQ ファイルは使用する Mac にあらかじめダウンロードしておきます。自分でダウンロードする場合は、[PRJNA963162](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE229320)のデータを ENA から`/Users/binds2026/fastq`にダウンロードします。
 
 ```zsh
 brew install wget coreutils
 
-mkdir -p /Users/binds2026/workshop/fastq
+mkdir -p /Users/binds2026/fastq
 
-wget -O /Users/binds2026/workshop/fastq/PRJNA963162_ena_fastq.tsv \
+wget -O /Users/binds2026/fastq/PRJNA963162_ena_fastq.tsv \
   'https://www.ebi.ac.uk/ena/portal/api/filereport?accession=PRJNA963162&result=read_run&fields=run_accession,fastq_ftp,fastq_md5,fastq_bytes&format=tsv&download=true'
 
-awk 'NR > 1 {print "https://"$2}' /Users/binds2026/workshop/fastq/PRJNA963162_ena_fastq.tsv \
-  > /Users/binds2026/workshop/fastq/fastq_urls.txt
+awk 'NR > 1 {print "https://"$2}' /Users/binds2026/fastq/PRJNA963162_ena_fastq.tsv \
+  > /Users/binds2026/fastq/fastq_urls.txt
 
-wget -P /Users/binds2026/workshop/fastq -i /Users/binds2026/workshop/fastq/fastq_urls.txt
+wget -P /Users/binds2026/fastq -i /Users/binds2026/fastq/fastq_urls.txt
 
-awk 'NR > 1 {n = split($2, path, "/"); print $3 "  /Users/binds2026/workshop/fastq/" path[n]}' \
-  /Users/binds2026/workshop/fastq/PRJNA963162_ena_fastq.tsv \
-  > /Users/binds2026/workshop/fastq/MD5SUMS
+awk 'NR > 1 {n = split($2, path, "/"); print $3 "  /Users/binds2026/fastq/" path[n]}' \
+  /Users/binds2026/fastq/PRJNA963162_ena_fastq.tsv \
+  > /Users/binds2026/fastq/MD5SUMS
 
-gmd5sum -c /Users/binds2026/workshop/fastq/MD5SUMS
+gmd5sum -c /Users/binds2026/fastq/MD5SUMS
 ```
 
 #### 3.2.2 リファレンスファイル（GRCm39, GENCODE Release M39）
 リファレンスファイルは、オンサイト講習会で使用する Mac にあらかじめ配置しておきます。解析では下記のファイルを使用します。
 
-- `/Users/binds2026/workshop/ref/gencode.vM39.chr_patch_hapl_scaff.annotation.gtf.gz`
-- `/Users/binds2026/workshop/ref/gencode.vM39.transcripts.fa.gz`
+- `/Users/binds/workshop/ref/gencode.vM39.chr_patch_hapl_scaff.annotation.gtf.gz`
+- `/Users/binds/workshop/ref/gencode.vM39.transcripts.fa.gz`
 
 ---
 
@@ -112,12 +112,12 @@ gmd5sum -c /Users/binds2026/workshop/fastq/MD5SUMS
 `condition`列は nf-core/differentialabundance で使用します。
 ```csv
 sample,fastq_1,strandedness,condition
-control1,/Users/binds2026/workshop/fastq/SRR24350720.fastq.gz,auto,control
-control2,/Users/binds2026/workshop/fastq/SRR24350719.fastq.gz,auto,control
-control3,/Users/binds2026/workshop/fastq/SRR24350718.fastq.gz,auto,control
-stress1,/Users/binds2026/workshop/fastq/SRR24350715.fastq.gz,auto,stress
-stress2,/Users/binds2026/workshop/fastq/SRR24350714.fastq.gz,auto,stress
-stress3,/Users/binds2026/workshop/fastq/SRR24350713.fastq.gz,auto,stress
+control1,/Users/binds2026/fastq/SRR24350720.fastq.gz,auto,control
+control2,/Users/binds2026/fastq/SRR24350719.fastq.gz,auto,control
+control3,/Users/binds2026/fastq/SRR24350718.fastq.gz,auto,control
+stress1,/Users/binds2026/fastq/SRR24350715.fastq.gz,auto,stress
+stress2,/Users/binds2026/fastq/SRR24350714.fastq.gz,auto,stress
+stress3,/Users/binds2026/fastq/SRR24350713.fastq.gz,auto,stress
 ```
 ### 4.2 Salmon による定量
 Salmon によって遺伝子産物の定量を行います。
@@ -126,8 +126,8 @@ nextflow run nf-core/rnaseq \
 -r 3.26.0 \
 -profile docker \
 --input /Users/binds2026/workshop/samplesheet.csv \
---transcript_fasta /Users/binds2026/workshop/ref/gencode.vM39.transcripts.fa.gz \
---gtf /Users/binds2026/workshop/ref/gencode.vM39.chr_patch_hapl_scaff.annotation.gtf.gz \
+--transcript_fasta /Users/binds/workshop/ref/gencode.vM39.transcripts.fa.gz \
+--gtf /Users/binds/workshop/ref/gencode.vM39.chr_patch_hapl_scaff.annotation.gtf.gz \
 --gencode \
 --skip_trimming \
 --skip_alignment \
@@ -164,7 +164,7 @@ nextflow run nf-core/differentialabundance \
 --contrasts /Users/binds2026/workshop/contrasts.csv \
 --matrix /Users/binds2026/workshop/results/salmon/salmon.merged.gene_counts.tsv \
 --transcript_length_matrix /Users/binds2026/workshop/results/salmon/salmon.merged.gene_lengths.tsv \
---gtf /Users/binds2026/workshop/ref/gencode.vM39.chr_patch_hapl_scaff.annotation.gtf.gz \
+--gtf /Users/binds/workshop/ref/gencode.vM39.chr_patch_hapl_scaff.annotation.gtf.gz \
 --outdir /Users/binds2026/workshop/DEG
 ```
 
