@@ -101,8 +101,8 @@ gmd5sum -c /Users/binds2026/fastq/MD5SUMS
 #### 3.2.2 リファレンスファイル（GRCm39, GENCODE Release M39）
 リファレンスファイルは、オンサイト講習会で使用する Mac にあらかじめ配置しておきます。解析では下記のファイルを使用します。
 
-- `/Users/binds/workshop/ref/gencode.vM39.chr_patch_hapl_scaff.annotation.gtf.gz`
 - `/Users/binds/workshop/ref/gencode.vM39.transcripts.fa.gz`
+- `/Users/binds/workshop/ref/gencode.vM39.annotation.gtf.gz`
 
 ---
 
@@ -127,7 +127,7 @@ nextflow run nf-core/rnaseq \
 -profile docker \
 --input /Users/binds2026/workshop/samplesheet.csv \
 --transcript_fasta /Users/binds/workshop/ref/gencode.vM39.transcripts.fa.gz \
---gtf /Users/binds/workshop/ref/gencode.vM39.chr_patch_hapl_scaff.annotation.gtf.gz \
+--gtf /Users/binds/workshop/ref/gencode.vM39.annotation.gtf.gz \
 --gencode \
 --skip_trimming \
 --skip_alignment \
@@ -164,7 +164,7 @@ nextflow run nf-core/differentialabundance \
 --contrasts /Users/binds2026/workshop/contrasts.csv \
 --matrix /Users/binds2026/workshop/results/salmon/salmon.merged.gene_counts.tsv \
 --transcript_length_matrix /Users/binds2026/workshop/results/salmon/salmon.merged.gene_lengths.tsv \
---gtf /Users/binds/workshop/ref/gencode.vM39.chr_patch_hapl_scaff.annotation.gtf.gz \
+--gtf /Users/binds/workshop/ref/gencode.vM39.annotation.gtf.gz \
 --outdir /Users/binds2026/workshop/DEG
 ```
 
