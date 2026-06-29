@@ -15,7 +15,8 @@
   - メモリ : 16GB
   - ストレージ : 256GB
   - OS : macOS Tahoe 26.0.1
-- `/Users/binds/workshop`で解析を行います。
+- 講習会参加者用アカウントは `binds2026` を使用します。
+- `/Users/binds2026/workshop`で解析を行います。
 
 ---
 
@@ -29,7 +30,7 @@ Homebrew は macOS 用のパッケージマネージャです。
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
  ```
  ```zsh
-  echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/binds/.zprofile
+  echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/binds2026/.zprofile
   eval "$(/opt/homebrew/bin/brew shellenv)"
   ```
 ### 2.3 Nextflow のインストール
@@ -75,48 +76,48 @@ chr1	ENSEMBL	transcript	3172239	3172348	.	+	.	gene_id "ENSMUSG00000064842.3"; tr
 ```
 ### 3.2 各データのダウンロード（今回はスキップ）
 #### 3.2.1 FASTQ ファイルのダウンロード
-オンサイト講習会では、FASTQ ファイルは使用する Mac にあらかじめダウンロードしておきます。自分でダウンロードする場合は、[PRJNA963162](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE229320)のデータを ENA から`/Users/binds/workshop/fastq`にダウンロードします。
+オンサイト講習会では、FASTQ ファイルは使用する Mac にあらかじめダウンロードしておきます。自分でダウンロードする場合は、[PRJNA963162](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE229320)のデータを ENA から`/Users/binds2026/workshop/fastq`にダウンロードします。
 
 ```zsh
 brew install wget coreutils
 
-mkdir -p /Users/binds/workshop/fastq
+mkdir -p /Users/binds2026/workshop/fastq
 
-wget -O /Users/binds/workshop/fastq/PRJNA963162_ena_fastq.tsv \
+wget -O /Users/binds2026/workshop/fastq/PRJNA963162_ena_fastq.tsv \
   'https://www.ebi.ac.uk/ena/portal/api/filereport?accession=PRJNA963162&result=read_run&fields=run_accession,fastq_ftp,fastq_md5,fastq_bytes&format=tsv&download=true'
 
-awk 'NR > 1 {print "https://"$2}' /Users/binds/workshop/fastq/PRJNA963162_ena_fastq.tsv \
-  > /Users/binds/workshop/fastq/fastq_urls.txt
+awk 'NR > 1 {print "https://"$2}' /Users/binds2026/workshop/fastq/PRJNA963162_ena_fastq.tsv \
+  > /Users/binds2026/workshop/fastq/fastq_urls.txt
 
-wget -P /Users/binds/workshop/fastq -i /Users/binds/workshop/fastq/fastq_urls.txt
+wget -P /Users/binds2026/workshop/fastq -i /Users/binds2026/workshop/fastq/fastq_urls.txt
 
-awk 'NR > 1 {n = split($2, path, "/"); print $3 "  /Users/binds/workshop/fastq/" path[n]}' \
-  /Users/binds/workshop/fastq/PRJNA963162_ena_fastq.tsv \
-  > /Users/binds/workshop/fastq/MD5SUMS
+awk 'NR > 1 {n = split($2, path, "/"); print $3 "  /Users/binds2026/workshop/fastq/" path[n]}' \
+  /Users/binds2026/workshop/fastq/PRJNA963162_ena_fastq.tsv \
+  > /Users/binds2026/workshop/fastq/MD5SUMS
 
-gmd5sum -c /Users/binds/workshop/fastq/MD5SUMS
+gmd5sum -c /Users/binds2026/workshop/fastq/MD5SUMS
 ```
 
 #### 3.2.2 リファレンスファイル（GRCm39, GENCODE Release M39）
 リファレンスファイルは、オンサイト講習会で使用する Mac にあらかじめ配置しておきます。解析では下記のファイルを使用します。
 
-- `/Users/binds/workshop/ref/gencode.vM39.chr_patch_hapl_scaff.annotation.gtf.gz`
-- `/Users/binds/workshop/ref/gencode.vM39.transcripts.fa.gz`
+- `/Users/binds2026/workshop/ref/gencode.vM39.chr_patch_hapl_scaff.annotation.gtf.gz`
+- `/Users/binds2026/workshop/ref/gencode.vM39.transcripts.fa.gz`
 
 ---
 
 ## 4. nf-core/rnaseq による定量
 ### 4.1 サンプルシートの作成
-サンプル名、FASTQ ファイルへのパス、ライブラリの向き、実験条件を記述し、`/Users/binds/workshop/samplesheet.csv`として保存します。
+サンプル名、FASTQ ファイルへのパス、ライブラリの向き、実験条件を記述し、`/Users/binds2026/workshop/samplesheet.csv`として保存します。
 `condition`列は nf-core/differentialabundance で使用します。
 ```csv
 sample,fastq_1,strandedness,condition
-control1,/Users/binds/workshop/fastq/SRR24350720.fastq.gz,auto,control
-control2,/Users/binds/workshop/fastq/SRR24350719.fastq.gz,auto,control
-control3,/Users/binds/workshop/fastq/SRR24350718.fastq.gz,auto,control
-stress1,/Users/binds/workshop/fastq/SRR24350715.fastq.gz,auto,stress
-stress2,/Users/binds/workshop/fastq/SRR24350714.fastq.gz,auto,stress
-stress3,/Users/binds/workshop/fastq/SRR24350713.fastq.gz,auto,stress
+control1,/Users/binds2026/workshop/fastq/SRR24350720.fastq.gz,auto,control
+control2,/Users/binds2026/workshop/fastq/SRR24350719.fastq.gz,auto,control
+control3,/Users/binds2026/workshop/fastq/SRR24350718.fastq.gz,auto,control
+stress1,/Users/binds2026/workshop/fastq/SRR24350715.fastq.gz,auto,stress
+stress2,/Users/binds2026/workshop/fastq/SRR24350714.fastq.gz,auto,stress
+stress3,/Users/binds2026/workshop/fastq/SRR24350713.fastq.gz,auto,stress
 ```
 ### 4.2 Salmon による定量
 Salmon によって遺伝子産物の定量を行います。
@@ -124,31 +125,31 @@ Salmon によって遺伝子産物の定量を行います。
 nextflow run nf-core/rnaseq \
 -r 3.26.0 \
 -profile docker \
---input /Users/binds/workshop/samplesheet.csv \
---transcript_fasta /Users/binds/workshop/ref/gencode.vM39.transcripts.fa.gz \
---gtf /Users/binds/workshop/ref/gencode.vM39.chr_patch_hapl_scaff.annotation.gtf.gz \
+--input /Users/binds2026/workshop/samplesheet.csv \
+--transcript_fasta /Users/binds2026/workshop/ref/gencode.vM39.transcripts.fa.gz \
+--gtf /Users/binds2026/workshop/ref/gencode.vM39.chr_patch_hapl_scaff.annotation.gtf.gz \
 --gencode \
 --skip_trimming \
 --skip_alignment \
 --pseudo_aligner salmon \
---outdir /Users/binds/workshop/results
+--outdir /Users/binds2026/workshop/results
 ```
 ---
 
 ## 5. nf-core/differentialabundance による発現変動解析
 ### 5.1 コントラストファイルの作成
 
-サンプルシートは 4.1 で作成した`/Users/binds/workshop/samplesheet.csv`を使用します。
+サンプルシートは 4.1 で作成した`/Users/binds2026/workshop/samplesheet.csv`を使用します。
 `variable`にはサンプルシートの列名、`reference`には比較の基準群、`target`には比較したい群を指定します。
 今回は`condition`列の`control`群を基準にして、`stress`群との発現量の違いを調べます。
 `blocking`列は使用しないため空欄にします。
 
-下記のコマンドで`/Users/binds/workshop/contrasts.csv`を作成します。
+下記のコマンドで`/Users/binds2026/workshop/contrasts.csv`を作成します。
 ```
-printf "id,variable,reference,target,blocking\nstress_vs_control,condition,control,stress,\n" > /Users/binds/workshop/contrasts.csv
+printf "id,variable,reference,target,blocking\nstress_vs_control,condition,control,stress,\n" > /Users/binds2026/workshop/contrasts.csv
 ```
 
-`/Users/binds/workshop/contrasts.csv`の中身は下記のようになっています。
+`/Users/binds2026/workshop/contrasts.csv`の中身は下記のようになっています。
 ```
 id,variable,reference,target,blocking
 stress_vs_control,condition,control,stress,
@@ -159,12 +160,12 @@ stress_vs_control,condition,control,stress,
 nextflow run nf-core/differentialabundance \
 -r 1.5.0 \
 -profile docker \
---input /Users/binds/workshop/samplesheet.csv \
---contrasts /Users/binds/workshop/contrasts.csv \
---matrix /Users/binds/workshop/results/salmon/salmon.merged.gene_counts.tsv \
---transcript_length_matrix /Users/binds/workshop/results/salmon/salmon.merged.gene_lengths.tsv \
---gtf /Users/binds/workshop/ref/gencode.vM39.chr_patch_hapl_scaff.annotation.gtf.gz \
---outdir /Users/binds/workshop/DEG
+--input /Users/binds2026/workshop/samplesheet.csv \
+--contrasts /Users/binds2026/workshop/contrasts.csv \
+--matrix /Users/binds2026/workshop/results/salmon/salmon.merged.gene_counts.tsv \
+--transcript_length_matrix /Users/binds2026/workshop/results/salmon/salmon.merged.gene_lengths.tsv \
+--gtf /Users/binds2026/workshop/ref/gencode.vM39.chr_patch_hapl_scaff.annotation.gtf.gz \
+--outdir /Users/binds2026/workshop/DEG
 ```
 
 ---
