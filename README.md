@@ -141,16 +141,19 @@ nextflow run nf-core/rnaseq \
 ### 5.1 コントラストファイルの作成
 
 サンプルシートは 4.1 で作成した`/Users/binds/workshop/samplesheet.csv`を使用します。
+`variable`にはサンプルシートの列名、`reference`には比較の基準群、`target`には比較したい群を指定します。
+今回は`condition`列の`control`群を基準にして、`stress`群との発現量の違いを調べます。
+`blocking`列は使用しないため空欄にします。
 
 下記のコマンドで`/Users/binds/workshop/contrasts.csv`を作成します。
 ```
-echo -e "id,variable,reference,target,blocking\nstress_vs_control,condition,control,stress," > /Users/binds/workshop/contrasts.csv
+printf "id,variable,reference,target,blocking\nstress_vs_control,condition,control,stress,\n" > /Users/binds/workshop/contrasts.csv
 ```
 
 `/Users/binds/workshop/contrasts.csv`の中身は下記のようになっています。
 ```
 id,variable,reference,target,blocking
-stress_vs_control,condition,control,stress
+stress_vs_control,condition,control,stress,
 ```
 
 ### 5.2 nf-core/differentialabundance による発現変動解析
