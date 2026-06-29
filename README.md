@@ -102,7 +102,6 @@ gmd5sum -c /Users/binds/workshop/fastq/MD5SUMS
 
 - `/Users/binds/workshop/ref/gencode.vM39.chr_patch_hapl_scaff.annotation.gtf.gz`
 - `/Users/binds/workshop/ref/gencode.vM39.transcripts.fa.gz`
-- `/Users/binds/workshop/ref/gencode.vM39.chr_patch_hapl_scaff.annotation.bed`
 
 ---
 
@@ -128,7 +127,6 @@ nextflow run nf-core/rnaseq \
 --input /Users/binds/workshop/samplesheet.csv \
 --transcript_fasta /Users/binds/workshop/ref/gencode.vM39.transcripts.fa.gz \
 --gtf /Users/binds/workshop/ref/gencode.vM39.chr_patch_hapl_scaff.annotation.gtf.gz \
---gene_bed /Users/binds/workshop/ref/gencode.vM39.chr_patch_hapl_scaff.annotation.bed \
 --gencode \
 --skip_trimming \
 --skip_alignment \
