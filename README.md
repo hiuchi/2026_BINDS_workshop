@@ -73,9 +73,30 @@ chr1	HAVANA	exon	3143476	3144545	.	+	.	gene_id "ENSMUSG00000102693.2"; transcrip
 chr1	ENSEMBL	gene	3172239	3172348	.	+	.	gene_id "ENSMUSG00000064842.3"; gene_type "snRNA"; gene_name "Gm26206"; level 3; mgi_id "MGI:5455983";
 chr1	ENSEMBL	transcript	3172239	3172348	.	+	.	gene_id "ENSMUSG00000064842.3"; transcript_id "ENSMUST00000082908.3"; gene_type "snRNA"; gene_name "Gm26206"; transcript_type "snRNA"; transcript_name "Gm26206-201"; level 3; transcript_support_level "NA"; mgi_id "MGI:5455983"; tag "basic"; tag "Ensembl_canonical"; tag "GENCODE_Primary";
 ```
-### 3.2 各データのダウンロード
-#### 3.2.1 **今回はスキップ** FASTQ ファイルのダウンロード
-  - [PRJNA963162](https://www.ncbi.nlm.nih.gov/Traces/study/?acc=PRJNA963162)から`/Users/binds/workshop/fastq`に FASTQ ファイルをダウンロードする。
+### 3.2 各データのダウンロード（今回はスキップ）
+#### 3.2.1 FASTQ ファイルのダウンロード
+オンサイト講習会では、FASTQ ファイルは使用する Mac にあらかじめダウンロードしておきます。自分でダウンロードする場合は、[PRJNA963162](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE229320)のデータを ENA から`/Users/binds/workshop/fastq`にダウンロードします。
+
+```zsh
+brew install wget coreutils
+
+mkdir -p /Users/binds/workshop/fastq
+
+wget -O /Users/binds/workshop/fastq/PRJNA963162_ena_fastq.tsv \
+  'https://www.ebi.ac.uk/ena/portal/api/filereport?accession=PRJNA963162&result=read_run&fields=run_accession,fastq_ftp,fastq_md5,fastq_bytes&format=tsv&download=true'
+
+awk 'NR > 1 {print "https://"$2}' /Users/binds/workshop/fastq/PRJNA963162_ena_fastq.tsv \
+  > /Users/binds/workshop/fastq/fastq_urls.txt
+
+wget -P /Users/binds/workshop/fastq -i /Users/binds/workshop/fastq/fastq_urls.txt
+
+awk 'NR > 1 {n = split($2, path, "/"); print $3 "  /Users/binds/workshop/fastq/" path[n]}' \
+  /Users/binds/workshop/fastq/PRJNA963162_ena_fastq.tsv \
+  > /Users/binds/workshop/fastq/MD5SUMS
+
+gmd5sum -c /Users/binds/workshop/fastq/MD5SUMS
+```
+
 #### 3.2.2 リファレンスファイル（GRCm39, ReleaseM38）を [GENCODE](https://www.gencodegenes.org/mouse/) からダウンロード
   - GTF ファイル : Comprehensive gene annotation (All) を`/Users/binds/workshop/ref`にダウンロードします。
   - FASTA ファイル : Transcript sequences	(ALL) を`/Users/binds/workshop/ref`にダウンロードします。
