@@ -75,16 +75,16 @@ chr1	ENSEMBL	transcript	3172239	3172348	.	+	.	gene_id "ENSMUSG00000064842.3"; tr
 ```
 ### 3.2 各データのダウンロード
 #### 3.2.1 **今回はスキップ** FASTQ ファイルのダウンロード
-  - [PRJNA963162](https://www.ncbi.nlm.nih.gov/Traces/study/?acc=PRJNA963162)から`/Users/workshop/fastq`に FASTQ ファイルをダウンロードする。
+  - [PRJNA963162](https://www.ncbi.nlm.nih.gov/Traces/study/?acc=PRJNA963162)から`/Users/binds/workshop/fastq`に FASTQ ファイルをダウンロードする。
 #### 3.2.2 リファレンスファイル（GRCm39, ReleaseM38）を [GENCODE](https://www.gencodegenes.org/mouse/) からダウンロード
-  - GTF ファイル : Comprehensive gene annotation (All) を`/Users/workshop/ref`にダウンロードします。
-  - FASTA ファイル : Transcript sequences	(ALL) を`/Users/workshop/ref`にダウンロードします。
+  - GTF ファイル : Comprehensive gene annotation (All) を`/Users/binds/workshop/ref`にダウンロードします。
+  - FASTA ファイル : Transcript sequences	(ALL) を`/Users/binds/workshop/ref`にダウンロードします。
 
 ---
 
 ## 4. nf-core/rnaseq による定量
 ### 4.1 サンプルシートの作成
-サンプル名と FASTQ ファイルへのパスの対応を記述し、`samplesheet_rnaseq.csv`として保存します。
+サンプル名と FASTQ ファイルへのパスの対応を記述し、`/Users/binds/workshop/samplesheet_rnaseq.csv`として保存します。
 ```csv
 sample,fastq_1,strandedness,condition
 stress1,/Users/binds/workshop/fastq/SRR24350711.fastq.gz,auto,stress
@@ -101,7 +101,7 @@ control5,/Users/binds/workshop/fastq/SRR24350720.fastq.gz,auto,control
 ### 4.2 キャップ指定ファイルの作成
 今回は廉価なマシンを使用しているため、メモリが足りなくなりエラーが出ることがあります。`cap.nf`というファイルを作成し Nextflow に読み込ませることで、メモリを使いすぎないようにします。
 ```nf
-cat > cap.nf <<'NF'
+cat > /Users/binds/workshop/cap.nf <<'NF'
 process {
   withLabel: process_low { cpus = 2; memory = 4.GB; maxForks = 3 }
   withLabel: process_medium { cpus = 4; memory = 6.GB; maxForks = 2 }
@@ -112,7 +112,7 @@ NF
 
 メモリが 8 GB 以下の場合は下記のファイルを作成します。
 ```nf
-cat > cap.nf <<'NF'
+cat > /Users/binds/workshop/cap.nf <<'NF'
 process {
   withLabel: process_low { cpus = 1; memory = 3.GB; maxForks = 2 }
   withLabel: process_medium { cpus = 2; memory = 3.GB; maxForks = 2 }
@@ -127,27 +127,27 @@ Salmon によって遺伝子産物の定量を行います。
 nextflow run nf-core/rnaseq \
 -r 3.21.0 \
 -profile docker \
--c cap.nf \
---input samplesheet_rnaseq.csv \
---transcript_fasta ref/gencode.vM38.transcripts.fa \
---gtf ref/gencode.vM38.chr_patch_hapl_scaff.annotation.gtf \
+-c /Users/binds/workshop/cap.nf \
+--input /Users/binds/workshop/samplesheet_rnaseq.csv \
+--transcript_fasta /Users/binds/workshop/ref/gencode.vM38.transcripts.fa \
+--gtf /Users/binds/workshop/ref/gencode.vM38.chr_patch_hapl_scaff.annotation.gtf \
 --gencode \
 --skip_trimming \
 --skip_alignment \
 --pseudo_aligner salmon \
---outdir results
+--outdir /Users/binds/workshop/results
 ```
 ---
 
 ## 5. nf-core/differentialabundance による発現変動解析
 ### 5.1 コントラストファイルの作成
 
-下記のコマンドで`contrasts.csv`を作成します。
+下記のコマンドで`/Users/binds/workshop/contrasts.csv`を作成します。
 ```
-echo -e "id,variable,reference,target,blocking\nstress_vs_control,condition,control,stress," > contrasts.csv
+echo -e "id,variable,reference,target,blocking\nstress_vs_control,condition,control,stress," > /Users/binds/workshop/contrasts.csv
 ```
 
-`contrasts.csv`の中身は下記のようになっています。
+`/Users/binds/workshop/contrasts.csv`の中身は下記のようになっています。
 ```
 id,variable,reference,target,blocking
 stress_vs_control,condition,control,stress
@@ -158,11 +158,11 @@ stress_vs_control,condition,control,stress
 nextflow run nf-core/differentialabundance \
 -r 1.5.0 \
 -profile docker \
---input samplesheet_rnaseq.csv \
---contrasts contrasts.csv \
---matrix results/salmon/salmon.merged.gene_counts.tsv \
---gtf ref/gencode.vM38.chr_patch_hapl_scaff.annotation.gtf \
---outdir DEG
+--input /Users/binds/workshop/samplesheet_rnaseq.csv \
+--contrasts /Users/binds/workshop/contrasts.csv \
+--matrix /Users/binds/workshop/results/salmon/salmon.merged.gene_counts.tsv \
+--gtf /Users/binds/workshop/ref/gencode.vM38.chr_patch_hapl_scaff.annotation.gtf \
+--outdir /Users/binds/workshop/DEG
 ```
 
 ---
