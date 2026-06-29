@@ -35,7 +35,7 @@ Homebrew は macOS 用のパッケージマネージャです。
 ### 2.3 Nextflow のインストール
 Homebrew を使って Java と Nextflow をインストールします。
   ```zsh
-  brew install openjdk@11
+  brew install openjdk@21
   brew install nextflow
   ```
 ---
@@ -75,7 +75,7 @@ chr1	ENSEMBL	transcript	3172239	3172348	.	+	.	gene_id "ENSMUSG00000064842.3"; tr
 ```
 ### 3.2 各データのダウンロード
 #### 3.2.1 **今回はスキップ** FASTQ ファイルのダウンロード
-  - [PRJNA963162](https://www.ncbi.nlm.nih.gov/Traces/study/?acc=PRJNA963162)から`/Users/worksho/fastq`に FASTQ ファイルをダウンロードする。
+  - [PRJNA963162](https://www.ncbi.nlm.nih.gov/Traces/study/?acc=PRJNA963162)から`/Users/workshop/fastq`に FASTQ ファイルをダウンロードする。
 #### 3.2.2 リファレンスファイル（GRCm39, ReleaseM38）を [GENCODE](https://www.gencodegenes.org/mouse/) からダウンロード
   - GTF ファイル : Comprehensive gene annotation (All) を`/Users/workshop/ref`にダウンロードします。
   - FASTA ファイル : Transcript sequences	(ALL) を`/Users/workshop/ref`にダウンロードします。
