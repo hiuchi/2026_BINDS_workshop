@@ -6,7 +6,7 @@
 - 心理的ストレスを与えるために 7 日間拘束したマウスの結腸組織におけるバルク RNA-seq データです。control 群と stress 群がそれぞれ n=5 ずつ存在します。
 ### 1.2 講習内容
 - 環境構築
-- リファレンスファイルのダウンロード
+- 入力ファイルの確認
 - nf-core/rnaseq による定量
 - nf-core/differentialabundance による発現変動解析
 ### 1.3 検証環境
@@ -40,7 +40,7 @@ Homebrew を使って Java と Nextflow をインストールします。
   ```
 ---
 
-## 3. リファレンスファイルのダウンロード
+## 3. 入力ファイルの確認
 ### 3.1 各データについて
 #### 3.1.1 FASTQ ファイル
 シーケンサーから出力される塩基配列とそのクオリティスコアが記述されたファイルです。
@@ -97,44 +97,27 @@ awk 'NR > 1 {n = split($2, path, "/"); print $3 "  /Users/binds/workshop/fastq/"
 gmd5sum -c /Users/binds/workshop/fastq/MD5SUMS
 ```
 
-#### 3.2.2 リファレンスファイル（GRCm39, GENCODE Release M39）を [GENCODE](https://www.gencodegenes.org/mouse/) からダウンロード
-  - GTF ファイル : Comprehensive gene annotation (All) を`/Users/binds/workshop/ref`にダウンロードします。
-  - FASTA ファイル : Transcript sequences (ALL) を`/Users/binds/workshop/ref`にダウンロードします。
-  - BED ファイル : GTF ファイルから`/Users/binds/workshop/ref`に作成します。
+#### 3.2.2 リファレンスファイル（GRCm39, GENCODE Release M39）
+リファレンスファイルは、オンサイト講習会で使用する Mac にあらかじめ配置しておきます。解析では下記のファイルを使用します。
 
-```zsh
-mkdir -p /Users/binds/workshop/ref
-
-wget -P /Users/binds/workshop/ref \
-  https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M39/gencode.vM39.chr_patch_hapl_scaff.annotation.gtf.gz
-
-wget -P /Users/binds/workshop/ref \
-  https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M39/gencode.vM39.transcripts.fa.gz
-
-nextflow pull nf-core/rnaseq -r 3.26.0
-
-/usr/bin/perl /Users/binds/.nextflow/assets/nf-core/rnaseq/bin/gtf2bed \
-  /Users/binds/workshop/ref/gencode.vM39.chr_patch_hapl_scaff.annotation.gtf.gz \
-  > /Users/binds/workshop/ref/gencode.vM39.chr_patch_hapl_scaff.annotation.bed
-```
+- `/Users/binds/workshop/ref/gencode.vM39.chr_patch_hapl_scaff.annotation.gtf.gz`
+- `/Users/binds/workshop/ref/gencode.vM39.transcripts.fa.gz`
+- `/Users/binds/workshop/ref/gencode.vM39.chr_patch_hapl_scaff.annotation.bed`
 
 ---
 
 ## 4. nf-core/rnaseq による定量
 ### 4.1 サンプルシートの作成
-サンプル名と FASTQ ファイルへのパスの対応を記述し、`/Users/binds/workshop/samplesheet_rnaseq.csv`として保存します。
+サンプル名、FASTQ ファイルへのパス、ライブラリの向き、実験条件を記述し、`/Users/binds/workshop/samplesheet.csv`として保存します。
+`condition`列は nf-core/differentialabundance で使用します。
 ```csv
-sample,fastq_1,strandedness
-stress1,/Users/binds/workshop/fastq/SRR24350715.fastq.gz,auto
-stress2,/Users/binds/workshop/fastq/SRR24350714.fastq.gz,auto
-stress3,/Users/binds/workshop/fastq/SRR24350713.fastq.gz,auto
-stress4,/Users/binds/workshop/fastq/SRR24350712.fastq.gz,auto
-stress5,/Users/binds/workshop/fastq/SRR24350711.fastq.gz,auto
-control1,/Users/binds/workshop/fastq/SRR24350720.fastq.gz,auto
-control2,/Users/binds/workshop/fastq/SRR24350719.fastq.gz,auto
-control3,/Users/binds/workshop/fastq/SRR24350718.fastq.gz,auto
-control4,/Users/binds/workshop/fastq/SRR24350717.fastq.gz,auto
-control5,/Users/binds/workshop/fastq/SRR24350716.fastq.gz,auto
+sample,fastq_1,strandedness,condition
+control1,/Users/binds/workshop/fastq/SRR24350720.fastq.gz,auto,control
+control2,/Users/binds/workshop/fastq/SRR24350719.fastq.gz,auto,control
+control3,/Users/binds/workshop/fastq/SRR24350718.fastq.gz,auto,control
+stress1,/Users/binds/workshop/fastq/SRR24350715.fastq.gz,auto,stress
+stress2,/Users/binds/workshop/fastq/SRR24350714.fastq.gz,auto,stress
+stress3,/Users/binds/workshop/fastq/SRR24350713.fastq.gz,auto,stress
 ```
 ### 4.2 Salmon による定量
 Salmon によって遺伝子産物の定量を行います。
@@ -142,7 +125,7 @@ Salmon によって遺伝子産物の定量を行います。
 nextflow run nf-core/rnaseq \
 -r 3.26.0 \
 -profile docker \
---input /Users/binds/workshop/samplesheet_rnaseq.csv \
+--input /Users/binds/workshop/samplesheet.csv \
 --transcript_fasta /Users/binds/workshop/ref/gencode.vM39.transcripts.fa.gz \
 --gtf /Users/binds/workshop/ref/gencode.vM39.chr_patch_hapl_scaff.annotation.gtf.gz \
 --gene_bed /Users/binds/workshop/ref/gencode.vM39.chr_patch_hapl_scaff.annotation.bed \
@@ -155,23 +138,9 @@ nextflow run nf-core/rnaseq \
 ---
 
 ## 5. nf-core/differentialabundance による発現変動解析
-### 5.1 サンプルシートとコントラストファイルの作成
+### 5.1 コントラストファイルの作成
 
-下記の内容を`/Users/binds/workshop/samplesheet_da.csv`として保存します。
-
-```csv
-sample,condition
-control1,control
-control2,control
-control3,control
-control4,control
-control5,control
-stress1,stress
-stress2,stress
-stress3,stress
-stress4,stress
-stress5,stress
-```
+サンプルシートは 4.1 で作成した`/Users/binds/workshop/samplesheet.csv`を使用します。
 
 下記のコマンドで`/Users/binds/workshop/contrasts.csv`を作成します。
 ```
@@ -189,7 +158,7 @@ stress_vs_control,condition,control,stress
 nextflow run nf-core/differentialabundance \
 -r 1.5.0 \
 -profile docker \
---input /Users/binds/workshop/samplesheet_da.csv \
+--input /Users/binds/workshop/samplesheet.csv \
 --contrasts /Users/binds/workshop/contrasts.csv \
 --matrix /Users/binds/workshop/results/salmon/salmon.merged.gene_counts.tsv \
 --transcript_length_matrix /Users/binds/workshop/results/salmon/salmon.merged.gene_lengths.tsv \
