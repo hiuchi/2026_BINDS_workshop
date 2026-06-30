@@ -108,16 +108,18 @@ gmd5sum -c /Users/binds2026/fastq/MD5SUMS
 
 ## 4. nf-core/rnaseq による定量
 ### 4.1 サンプルシートの作成
-サンプル名、FASTQ ファイルへのパス、ライブラリの向き、実験条件を記述し、`/Users/binds2026/workshop/samplesheet.csv`として保存します。
+サンプル名、FASTQ ファイルへのパス、ライブラリの向き、実験条件を記述し、`$HOME/Library/CloudStorage/Dropbox/samplesheet.csv`として保存します。
 `condition`列は nf-core/differentialabundance で使用します。
-```csv
+```zsh
+cat > "$HOME/Library/CloudStorage/Dropbox/samplesheet.csv" <<'EOF'
 sample,fastq_1,strandedness,condition
-control1,/Users/binds2026/fastq/SRR24350720.fastq.gz,auto,control
-control2,/Users/binds2026/fastq/SRR24350719.fastq.gz,auto,control
-control3,/Users/binds2026/fastq/SRR24350718.fastq.gz,auto,control
-stress1,/Users/binds2026/fastq/SRR24350715.fastq.gz,auto,stress
-stress2,/Users/binds2026/fastq/SRR24350714.fastq.gz,auto,stress
-stress3,/Users/binds2026/fastq/SRR24350713.fastq.gz,auto,stress
+control1,/Users/hiuchi/Dropbox/workshop/fastq/SRR24350720.fastq.gz,auto,control
+control2,/Users/hiuchi/Dropbox/workshop/fastq/SRR24350719.fastq.gz,auto,control
+control3,/Users/hiuchi/Dropbox/workshop/fastq/SRR24350718.fastq.gz,auto,control
+stress1,/Users/hiuchi/Dropbox/workshop/fastq/SRR24350715.fastq.gz,auto,stress
+stress2,/Users/hiuchi/Dropbox/workshop/fastq/SRR24350714.fastq.gz,auto,stress
+stress3,/Users/hiuchi/Dropbox/workshop/fastq/SRR24350713.fastq.gz,auto,stress
+EOF
 ```
 ### 4.2 Salmon による定量
 Salmon によって遺伝子産物の定量を行います。
@@ -125,7 +127,7 @@ Salmon によって遺伝子産物の定量を行います。
 nextflow run nf-core/rnaseq \
 -r 3.26.0 \
 -profile docker \
---input /Users/binds2026/workshop/samplesheet.csv \
+--input "$HOME/Library/CloudStorage/Dropbox/samplesheet.csv" \
 --transcript_fasta /Users/binds/workshop/ref/gencode.vM39.transcripts.fa.gz \
 --gtf /Users/binds/workshop/ref/gencode.vM39.annotation.gtf.gz \
 --gencode \
@@ -139,7 +141,7 @@ nextflow run nf-core/rnaseq \
 ## 5. nf-core/differentialabundance による発現変動解析
 ### 5.1 コントラストファイルの作成
 
-サンプルシートは 4.1 で作成した`/Users/binds2026/workshop/samplesheet.csv`を使用します。
+サンプルシートは 4.1 で作成した`$HOME/Library/CloudStorage/Dropbox/samplesheet.csv`を使用します。
 `variable`にはサンプルシートの列名、`reference`には比較の基準群、`target`には比較したい群を指定します。
 今回は`condition`列の`control`群を基準にして、`stress`群との発現量の違いを調べます。
 `blocking`列は使用しないため空欄にします。
@@ -160,7 +162,7 @@ stress_vs_control,condition,control,stress,
 nextflow run nf-core/differentialabundance \
 -r 1.5.0 \
 -profile docker \
---input /Users/binds2026/workshop/samplesheet.csv \
+--input "$HOME/Library/CloudStorage/Dropbox/samplesheet.csv" \
 --contrasts /Users/binds2026/workshop/contrasts.csv \
 --matrix /Users/binds2026/workshop/results/salmon/salmon.merged.gene_counts.tsv \
 --transcript_length_matrix /Users/binds2026/workshop/results/salmon/salmon.merged.gene_lengths.tsv \
