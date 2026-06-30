@@ -123,16 +123,26 @@ EOF
 ```
 ### 4.2 Salmon による定量
 Salmon によって遺伝子産物の定量を行います。
+Boolean パラメータは設定ファイルで指定します。
+```zsh
+cat > "/Users/binds2026/workshop/rnaseq.config" <<'EOF'
+params {
+  gencode = true
+  skip_trimming = true
+  skip_alignment = true
+}
+EOF
+```
+
+下記のコマンドで nf-core/rnaseq を実行します。
 ```
 nextflow run nf-core/rnaseq \
 -r 3.26.0 \
 -profile docker \
+-c /Users/binds2026/workshop/rnaseq.config \
 --input /Users/binds2026/workshop/samplesheet.csv \
 --transcript_fasta /Users/binds/workshop/ref/gencode.vM39.transcripts.fa.gz \
 --gtf /Users/binds/workshop/ref/gencode.vM39.annotation.gtf.gz \
---gencode \
---skip_trimming \
---skip_alignment \
 --pseudo_aligner salmon \
 --outdir /Users/binds2026/workshop/results
 ```
