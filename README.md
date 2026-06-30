@@ -113,12 +113,12 @@ gmd5sum -c /Users/binds2026/fastq/MD5SUMS
 ```zsh
 cat > "/Users/binds2026/workshop/samplesheet.csv" <<'EOF'
 sample,fastq_1,strandedness,condition
-control1,/Users/binds2026/workshop/fastq/SRR24350720.fastq.gz,auto,control
-control2,/Users/binds2026/workshop/fastq/SRR24350719.fastq.gz,auto,control
-control3,/Users/binds2026/workshop/fastq/SRR24350718.fastq.gz,auto,control
-stress1,/Users/binds2026/workshop/fastq/SRR24350715.fastq.gz,auto,stress
-stress2,/Users/binds2026/workshop/fastq/SRR24350714.fastq.gz,auto,stress
-stress3,/Users/binds2026/workshop/fastq/SRR24350713.fastq.gz,auto,stress
+control1,/Users/binds2026/fastq/SRR24350720.fastq.gz,auto,control
+control2,/Users/binds2026/fastq/SRR24350719.fastq.gz,auto,control
+control3,/Users/binds2026/fastq/SRR24350718.fastq.gz,auto,control
+stress1,/Users/binds2026/fastq/SRR24350715.fastq.gz,auto,stress
+stress2,/Users/binds2026/fastq/SRR24350714.fastq.gz,auto,stress
+stress3,/Users/binds2026/fastq/SRR24350713.fastq.gz,auto,stress
 EOF
 ```
 ### 4.2 Salmon による定量
