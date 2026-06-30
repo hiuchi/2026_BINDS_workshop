@@ -141,8 +141,8 @@ nextflow run nf-core/rnaseq \
 -profile docker \
 -c /Users/binds2026/workshop/rnaseq.config \
 --input /Users/binds2026/workshop/samplesheet.csv \
---transcript_fasta /Users/binds/workshop/ref/gencode.vM39.transcripts.fa.gz \
---gtf /Users/binds/workshop/ref/gencode.vM39.annotation.gtf.gz \
+--transcript_fasta /Users/binds2026/ref/gencode.vM39.transcripts.fa.gz \
+--gtf /Users/binds2026/ref/gencode.vM39.annotation.gtf.gz \
 --pseudo_aligner salmon \
 --outdir /Users/binds2026/workshop/results
 ```
