@@ -213,7 +213,7 @@ stress_vs_control,condition,control,stress,
 ### 5.2 nf-core/differentialabundance による発現変動解析
 ```
 nextflow run nf-core/differentialabundance \
--r 1.5.0 \
+-r 2.0.0 \
 -profile docker \
 --input /Users/binds2026/workshop/samplesheet.csv \
 --contrasts /Users/binds2026/workshop/contrasts.csv \
