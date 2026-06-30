@@ -148,6 +148,14 @@ process {
   withLabel: process_low { cpus = 2; memory = 4.GB; maxForks = 3 }
   withLabel: process_medium { cpus = 4; memory = 6.GB; maxForks = 2 }
   withLabel: process_high { cpus = 8; memory = 12.GB; maxForks = 1 }
+
+  withName: '.*:QUANTIFY_PSEUDO_ALIGNMENT:QUANT_TXIMPORT_SUMMARIZEDEXPERIMENT:SE_GENE_UNIFIED' {
+    ext.when = false
+  }
+
+  withName: '.*:QUANTIFY_PSEUDO_ALIGNMENT:QUANT_TXIMPORT_SUMMARIZEDEXPERIMENT:SE_TRANSCRIPT_UNIFIED' {
+    ext.when = false
+  }
 }
 EOF
 ```
@@ -158,6 +166,21 @@ Docker を立ち上げる。
 nextflow run nf-core/rnaseq \
 -r 3.26.0 \
 -profile docker \
+-c /Users/binds2026/workshop/rnaseq.config \
+--input /Users/binds2026/workshop/samplesheet.csv \
+--transcript_fasta /Users/binds2026/ref/gencode.vM39.transcripts.fa.gz \
+--gtf /Users/binds2026/ref/gencode.vM39.annotation.gtf.gz \
+--gene_bed /Users/binds2026/ref/gencode.vM39.annotation.bed \
+--pseudo_aligner salmon \
+--outdir /Users/binds2026/workshop/results
+```
+
+途中でエラーになった解析を再開する場合は、下記のように同じコマンドに`-resume`を追加して実行します。
+```
+nextflow run nf-core/rnaseq \
+-r 3.26.0 \
+-profile docker \
+-resume \
 -c /Users/binds2026/workshop/rnaseq.config \
 --input /Users/binds2026/workshop/samplesheet.csv \
 --transcript_fasta /Users/binds2026/ref/gencode.vM39.transcripts.fa.gz \
