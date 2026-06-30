@@ -101,8 +101,8 @@ gmd5sum -c /Users/binds2026/fastq/MD5SUMS
 #### 3.2.2 リファレンスファイル（GRCm39, GENCODE Release M39）
 リファレンスファイルは、オンサイト講習会で使用する Mac にあらかじめ配置してあります。解析では下記のファイルを使用します。
 
-- [`/Users/binds/workshop/ref/gencode.vM39.transcripts.fa.gz`](https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M39/gencode.vM39.transcripts.fa.gz)
-- [`/Users/binds/workshop/ref/gencode.vM39.annotation.gtf.gz`](https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M39/gencode.vM39.annotation.gtf.gz)
+- [`/Users/binds/ref/gencode.vM39.transcripts.fa.gz`](https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M39/gencode.vM39.transcripts.fa.gz)
+- [`/Users/binds/ref/gencode.vM39.annotation.gtf.gz`](https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M39/gencode.vM39.annotation.gtf.gz)
 
 ---
 
