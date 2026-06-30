@@ -101,8 +101,20 @@ gmd5sum -c /Users/binds2026/fastq/MD5SUMS
 #### 3.2.2 リファレンスファイル（GRCm39, GENCODE Release M39）
 リファレンスファイルは、オンサイト講習会で使用する Mac にあらかじめ配置してあります。解析では下記のファイルを使用します。
 
-- [`/Users/binds/ref/gencode.vM39.transcripts.fa.gz`](https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M39/gencode.vM39.transcripts.fa.gz)
-- [`/Users/binds/ref/gencode.vM39.annotation.gtf.gz`](https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M39/gencode.vM39.annotation.gtf.gz)
+- [`/Users/binds2026/ref/gencode.vM39.transcripts.fa.gz`](https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M39/gencode.vM39.transcripts.fa.gz)
+- [`/Users/binds2026/ref/gencode.vM39.annotation.gtf.gz`](https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M39/gencode.vM39.annotation.gtf.gz)
+- `/Users/binds2026/ref/gencode.vM39.annotation.bed`
+
+BED ファイルは、講習会で使用する Mac では作成せず、事前に作成したものを配置してあります。
+作成する場合は、下記のコマンドを実行します。
+
+```zsh
+nextflow pull nf-core/rnaseq -r 3.26.0
+
+perl "$HOME/.nextflow/assets/nf-core/rnaseq/modules/nf-core/ea-utils/gtf2bed" \
+  /Users/binds2026/ref/gencode.vM39.annotation.gtf.gz \
+  > /Users/binds2026/ref/gencode.vM39.annotation.bed
+```
 
 ---
 
@@ -150,6 +162,7 @@ nextflow run nf-core/rnaseq \
 --input /Users/binds2026/workshop/samplesheet.csv \
 --transcript_fasta /Users/binds2026/ref/gencode.vM39.transcripts.fa.gz \
 --gtf /Users/binds2026/ref/gencode.vM39.annotation.gtf.gz \
+--gene_bed /Users/binds2026/ref/gencode.vM39.annotation.bed \
 --pseudo_aligner salmon \
 --outdir /Users/binds2026/workshop/results
 ```
@@ -183,7 +196,7 @@ nextflow run nf-core/differentialabundance \
 --contrasts /Users/binds2026/workshop/contrasts.csv \
 --matrix /Users/binds2026/workshop/results/salmon/salmon.merged.gene_counts.tsv \
 --transcript_length_matrix /Users/binds2026/workshop/results/salmon/salmon.merged.gene_lengths.tsv \
---gtf /Users/binds/workshop/ref/gencode.vM39.annotation.gtf.gz \
+--gtf /Users/binds2026/ref/gencode.vM39.annotation.gtf.gz \
 --outdir /Users/binds2026/workshop/DEG
 ```
 
