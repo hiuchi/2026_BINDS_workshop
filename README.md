@@ -134,6 +134,7 @@ params {
 EOF
 ```
 
+Docker を立ち上げる。
 下記のコマンドで nf-core/rnaseq を実行します。
 ```
 nextflow run nf-core/rnaseq \
