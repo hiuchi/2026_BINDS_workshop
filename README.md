@@ -218,7 +218,7 @@ nextflow run nf-core/differentialabundance \
 --input /Users/binds2026/workshop/samplesheet.csv \
 --contrasts /Users/binds2026/workshop/contrasts.csv \
 --matrix /Users/binds2026/workshop/results/salmon/salmon.merged.gene_counts.tsv \
---transcript_length_matrix /Users/binds2026/workshop/results/salmon/salmon.merged.gene_lengths.tsv \
+--feature_length_matrix /Users/binds2026/workshop/results/salmon/salmon.merged.gene_lengths.tsv \
 --gtf /Users/binds2026/ref/gencode.vM39.annotation.gtf.gz \
 --outdir /Users/binds2026/workshop/DEG
 ```
