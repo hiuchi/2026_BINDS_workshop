@@ -1,4 +1,4 @@
-<img width="1536" height="2048" alt="CB76CD95-DE58-4162-A6D0-551668490EC8_1_102_o" src="https://github.com/user-attachments/assets/349c464c-6228-4c4a-8f69-b23a497b147a" /># BINDS発現・機能解析インシリコ解析融合ユニット講習会
+# BINDS発現・機能解析インシリコ解析融合ユニット講習会
 
 ## 1. 概要
 ### 1.1 対象のデータ
