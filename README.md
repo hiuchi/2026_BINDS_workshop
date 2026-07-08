@@ -124,7 +124,9 @@ perl "$HOME/.nextflow/assets/nf-core/rnaseq/modules/nf-core/ea-utils/gtf2bed" \
 サンプル名、FASTQ ファイルへのパス、ライブラリの向き、実験条件を記述し、`/Users/binds2026/workshop/samplesheet.csv`として保存します。
 `condition`列は nf-core/differentialabundance で使用します。
 ```zsh
-mkri /Users/binds2026/workshop
+mkdir /Users/binds2026/workshop
+cd /Users/binds2026/workshop
+
 cat > "/Users/binds2026/workshop/samplesheet.csv" <<'EOF'
 sample,fastq_1,strandedness,condition
 control1,/Users/binds2026/fastq/SRR24350720.fastq.gz,auto,control
