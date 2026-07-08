@@ -14,7 +14,7 @@
   - CPU : 10コア
   - メモリ : 16GB
   - ストレージ : 256GB
-  - OS : macOS Tahoe 26.0.1
+  - OS : macOS Tahoe 26.5.1
 - 講習会参加者用アカウントは `binds2026` を使用します。
 - `/Users/binds2026/workshop`で解析を行います。
 
