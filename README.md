@@ -187,14 +187,14 @@ nextflow run nf-core/rnaseq \
 nextflow run nf-core/rnaseq \
 -r 3.26.0 \
 -profile docker \
--resume \
 -c /Users/binds2026/workshop/rnaseq.config \
 --input /Users/binds2026/workshop/samplesheet.csv \
 --transcript_fasta /Users/binds2026/ref/gencode.vM39.transcripts.fa.gz \
 --gtf /Users/binds2026/ref/gencode.vM39.annotation.gtf.gz \
 --gene_bed /Users/binds2026/ref/gencode.vM39.annotation.bed \
 --pseudo_aligner salmon \
---outdir /Users/binds2026/workshop/results
+--outdir /Users/binds2026/workshop/results \
+-resume
 ```
 ---
 
