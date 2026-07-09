@@ -5,7 +5,7 @@
 
 ## 資料
 
-1. [基礎知識：ターミナルと RNA-seq 解析の全体像](basics.md)
+1. [RNA-seq 解析の基礎知識](basics.md)
    - ターミナル、`pwd`, `ls`, `cd`, `mkdir`
    - 絶対パス
    - Homebrew、Docker、Nextflow、nf-core
