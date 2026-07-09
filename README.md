@@ -1,15 +1,15 @@
 # BINDS発現・機能解析インシリコ解析融合ユニット講習会
 
 ## 1. 概要
-### 1.1 対象のデータ
-- [Schneider, Kai Markus et al. Cell, Volume 186, Issue 13, 2823-2838.e20](https://doi.org/10.1016/j.cell.2023.05.001)
-- 心理的ストレスを与えるために 7 日間拘束したマウスの結腸組織におけるバルク RNA-seq データです。control 群と stress 群がそれぞれ n=5 ずつ存在します。今回は 3 サンプルずつ解析します。
-### 1.2 講習内容
+### 1.1 講習内容
 - [初心者向け導入：ターミナルと RNA-seq 解析の全体像](intro_for_beginners.md)
 - 環境構築
 - 入力ファイルの確認
 - nf-core/rnaseq による定量
 - nf-core/differentialabundance による発現変動解析
+### 1.2 対象のデータ
+- [Schneider, Kai Markus et al. Cell, Volume 186, Issue 13, 2823-2838.e20](https://doi.org/10.1016/j.cell.2023.05.001)
+- 心理的ストレスを与えるために 7 日間拘束したマウスの結腸組織におけるバルク RNA-seq データです。control 群と stress 群がそれぞれ n=5 ずつ存在します。今回は 3 サンプルずつ解析します。
 ### 1.3 検証環境
 - MacBook Air (M4, 13-inch, 2024)
   - CPU : 10コア
