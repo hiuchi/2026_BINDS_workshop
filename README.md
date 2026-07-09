@@ -30,7 +30,7 @@ stress 群で発現が変化した遺伝子の一覧
    - Homebrew、Docker、Nextflow、nf-core
    - FASTQ、FASTA、GTF、BED、CSV ファイルの役割
 
-2. [実践：Nextflow による RNA-seq 解析](practice.md)
+2. [Nextflow による RNA-seq 解析の実践](practice.md)
    - 環境構築
    - 入力ファイルの確認
    - `nf-core/rnaseq` による定量
