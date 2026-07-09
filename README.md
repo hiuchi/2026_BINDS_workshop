@@ -142,7 +142,7 @@ EOF
 ```
 ### 4.2 Salmon による定量
 Salmon によって遺伝子産物の定量を行います。
-Boolean パラメータと、以前の `cap.nf` に相当する使用リソース上限は設定ファイルで指定します。
+今回は廉価な計算機をつかっているため、使用リソースを制限する`cap.nf`を作成します。
 ```zsh
 cat > "/Users/binds2026/workshop/rnaseq.config" <<'EOF'
 params {
