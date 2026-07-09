@@ -25,8 +25,3 @@
 - 発現変動解析: `nf-core/differentialabundance`
 - 参加者用アカウント: `binds2026`
 - 作業ディレクトリ: `/Users/binds2026/workshop`
-
-## 進め方
-
-はじめてターミナルやバイオインフォマティクス解析に触れる場合は、先に [基礎知識](basics.md) を読んでください。
-その後、[実践手順](practice.md) に沿って解析を進めます。
