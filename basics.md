@@ -194,7 +194,11 @@ nextflow run パイプライン名 オプション
 今回の `nf-core/rnaseq` では、たとえば次のようなコマンドを実行します。
 
 ```zsh
-nextflow run nf-core/rnaseq -r 3.26.0 -profile docker --input /Users/binds2026/workshop/samplesheet.csv --outdir /Users/binds2026/workshop/results
+nextflow run nf-core/rnaseq \
+  -r 3.26.0 \
+  -profile docker \
+  --input /Users/binds2026/workshop/samplesheet.csv \
+  --outdir /Users/binds2026/workshop/results
 ```
 
 主な部分の意味は次の通りです。
