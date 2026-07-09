@@ -30,6 +30,7 @@ Homebrew は macOS 用のパッケージマネージャです。
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
  ```
 上記のコマンド実行すると、"Press RETURN/ENTER to continue..."と聞かれるので、ENTER を押してください。
+
 インストールが終わったら、パスを通します。パス通しの意味は後ほど説明します。
  ```zsh
   echo >> /Users/binds2026/.zprofile
