@@ -399,21 +399,3 @@ stress_vs_control,condition,control,stress,
 | --- | --- |
 | `/Users/binds2026/workshop/results` | `nf-core/rnaseq` の結果 |
 | `/Users/binds2026/workshop/DEG` | `nf-core/differentialabundance` の結果 |
-
-## 9. 実習に入る前の確認
-
-実習を始める前に、次のことを確認します。
-
-```zsh
-pwd
-ls /Users/binds2026
-ls /Users/binds2026/fastq
-ls /Users/binds2026/ref
-mkdir -p /Users/binds2026/workshop
-cd /Users/binds2026/workshop
-pwd
-```
-
-ここまで確認できれば、実習で使う準備はできています。
-
-この後は、サンプルシートを作成し、`nf-core/rnaseq` で定量を行い、`nf-core/differentialabundance` で発現変動解析を行います。
