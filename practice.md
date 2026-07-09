@@ -173,7 +173,7 @@ EOF
 ### 4.2 Salmon による定量
 
 Salmon によって遺伝子産物の定量を行います。
-今回は参加者用 Mac で実行するため、使用リソースを制限する `rnaseq.config` を作成します。
+今回は廉価な Mac で実行するため、使用リソースを制限する `rnaseq.config` を作成します。
 
 ```zsh
 cat > "/Users/binds2026/workshop/rnaseq.config" <<'EOF'
