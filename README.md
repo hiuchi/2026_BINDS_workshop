@@ -2,7 +2,7 @@
 
 ## 1. 概要
 ### 1.1 講習内容
-- [初心者向け導入：ターミナルと RNA-seq 解析の全体像](intro_for_beginners.md)
+- [初心者向け導入：ターミナルと RNA-seq 解析の全体像](basics.md)
 - 環境構築
 - 入力ファイルの確認
 - nf-core/rnaseq による定量
