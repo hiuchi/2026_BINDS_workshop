@@ -29,6 +29,8 @@ Homebrew は macOS 用のパッケージマネージャです。
   ```zsh
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
  ```
+上記のコマンド実行すると、`Press RETURN/ENTER to continue...`と聞かれるので、ENTER を押してください。
+
  ```zsh
   echo >> /Users/binds2026/.zprofile
   echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/binds2026/.zprofile
