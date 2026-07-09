@@ -183,7 +183,7 @@ nextflow run nf-core/rnaseq
 
 これは「Nextflow で `nf-core/rnaseq` を実行する」という意味です。
 
-### 6.1 Nextflow コマンドの読み方
+### 6.1 nf-core/rnaseq コマンドの読み方
 
 Nextflow のコマンドは、基本的に次の形で読みます。
 
@@ -219,6 +219,40 @@ nextflow run nf-core/rnaseq \
 
 `-r` や `-profile` のように `-` で始まるものは、Nextflow 全体に対する指定です。
 `--input` や `--outdir` のように `--` で始まるものは、実行するパイプラインに渡す指定です。
+
+### 6.2 nf-core/differentialabundance コマンドの読み方
+
+`nf-core/differentialabundance` は、`nf-core/rnaseq` で作成した発現量テーブルと、サンプル情報、比較条件を使って発現変動解析を行うパイプラインです。
+今回の実習では、control 群を基準にして stress 群で発現が変化した遺伝子を調べます。
+
+```zsh
+nextflow run nf-core/differentialabundance \
+  -r 2.0.0 \
+  -profile docker \
+  --input /Users/binds2026/workshop/samplesheet.csv \
+  --contrasts /Users/binds2026/workshop/contrasts.csv \
+  --matrix /Users/binds2026/workshop/results/salmon/salmon.merged.gene_counts.tsv \
+  --feature_length_matrix /Users/binds2026/workshop/results/salmon/salmon.merged.gene_lengths.tsv \
+  --gtf /Users/binds2026/ref/gencode.vM39.annotation.gtf.gz \
+  --outdir /Users/binds2026/workshop/DEG
+```
+
+主な部分の意味は次の通りです。
+
+| 部分 | 意味 |
+| --- | --- |
+| `nf-core/differentialabundance` | 発現変動解析のパイプライン名 |
+| `-r 2.0.0` | 使うパイプラインのバージョンを指定する |
+| `-profile docker` | Docker を使って解析を実行する |
+| `--input` | サンプル情報を記述したファイルを指定する |
+| `--contrasts` | 比較条件を記述したファイルを指定する |
+| `--matrix` | 遺伝子ごとのカウントテーブルを指定する |
+| `--feature_length_matrix` | 遺伝子長のテーブルを指定する |
+| `--gtf` | 遺伝子アノテーションファイルを指定する |
+| `--outdir` | 解析結果の出力先を指定する |
+
+`--matrix` と `--feature_length_matrix` には、`nf-core/rnaseq` の結果として作られたファイルを指定します。
+つまり、発現変動解析は RNA-seq 定量の結果を入力として実行します。
 
 解析が途中で止まった場合は、同じコマンドに `-resume` を付けて再開できます。
 
