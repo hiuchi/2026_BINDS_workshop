@@ -24,7 +24,7 @@ stress 群で発現が変化した遺伝子の一覧
 
 ## 資料
 
-1. [RNA-seq 解析の基礎知識](basics.md)
+1. [基礎知識](basics.md)
    - ターミナル、`pwd`, `ls`, `cd`, `mkdir`
    - 絶対パス
    - Homebrew、Docker、Nextflow、nf-core
