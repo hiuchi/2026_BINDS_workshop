@@ -181,6 +181,14 @@ EOF
 Salmon によって遺伝子産物の定量を行います。
 今回は廉価な Mac で実行するため、使用リソースを制限する `rnaseq.config` を作成します。
 
+`nf-core/rnaseq` は、入力ファイルの確認、QC、定量、結果の集計などをまとめて実行します。
+全体の流れは下の図のようになります。
+今回の実習では、アラインメントは行わず、Salmon による定量を使います。
+
+![nf-core/rnaseq の処理の流れ](https://raw.githubusercontent.com/nf-core/rnaseq/3.26.0/docs/images/nf-core-rnaseq_metro_map_grey_animated.svg)
+
+図: [nf-core/rnaseq 3.26.0 metro map](https://github.com/nf-core/rnaseq/blob/3.26.0/docs/images/nf-core-rnaseq_metro_map_grey_animated.svg)
+
 ```zsh
 cat > "/Users/binds2026/workshop/rnaseq.config" <<'EOF'
 params {
