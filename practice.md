@@ -290,11 +290,3 @@ nextflow run nf-core/differentialabundance \
 
 HTML ファイルは Finder でダブルクリックするとブラウザで開けます。
 TSV ファイルは表形式のテキストファイルで、遺伝子ごとの発現量や発現変動解析の結果が入っています。
-
-ファイルが作成されているか確認する場合は、次のように出力先を見ます。
-
-```zsh
-ls /Users/binds2026/workshop/results/salmon
-ls /Users/binds2026/workshop/DEG/report/contrasts
-ls /Users/binds2026/workshop/DEG/tables/differential/contrasts
-```
