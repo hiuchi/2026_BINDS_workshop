@@ -175,6 +175,22 @@ nf-core は、Nextflow で作られた公開解析パイプラインの集まり
 | `nf-core/rnaseq` | FASTQ から発現量を定量する |
 | `nf-core/differentialabundance` | 群間で発現が変化した遺伝子を調べる |
 
+それぞれのパイプラインで行われる処理の全体像は、次の図のようになります。
+
+`nf-core/rnaseq` は、入力ファイルの確認、QC、定量、結果の集計などをまとめて実行します。
+今回の実習では、アラインメントは行わず、Salmon による定量を使います。
+
+![nf-core/rnaseq の処理の流れ](https://raw.githubusercontent.com/nf-core/rnaseq/3.26.0/docs/images/nf-core-rnaseq_metro_map_grey_animated.svg)
+
+図: [nf-core/rnaseq 3.26.0 metro map](https://github.com/nf-core/rnaseq/blob/3.26.0/docs/images/nf-core-rnaseq_metro_map_grey_animated.svg)
+
+`nf-core/differentialabundance` は、発現量テーブル、サンプル情報、比較条件を入力にして、統計解析、可視化、レポート作成をまとめて実行します。
+今回の実習では、DESeq2 によって control 群と stress 群の発現量を比較します。
+
+![nf-core/differentialabundance の処理の流れ](https://raw.githubusercontent.com/nf-core/differentialabundance/2.0.0/docs/images/nf-core-differentialabundance_metro_map_animated.svg)
+
+図: [nf-core/differentialabundance 2.0.0 metro map](https://github.com/nf-core/differentialabundance/blob/2.0.0/docs/images/nf-core-differentialabundance_metro_map_animated.svg)
+
 コマンドの先頭は次の形になります。
 
 ```zsh
