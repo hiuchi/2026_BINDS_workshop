@@ -108,6 +108,10 @@ chr1	ENSEMBL	transcript	3172239	3172348	.	+	.	gene_id "ENSMUSG00000064842.3"; tr
 
 オンサイト講習会では、FASTQ ファイルは使用する Mac にあらかじめダウンロードしておきます。自分でダウンロードする場合は、[PRJNA963162](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE229320)のデータを ENA から `/Users/binds2026/fastq` にダウンロードします。
 
+ここで示すダウンロード手順は、公開データベースから元データ一式を取得するための参考手順です。
+講習会で使用する FASTQ ファイルは、実習時間を短くするために、あらかじめ元データから chr1 から chr5 由来のリードを削除した軽量版です。
+そのため、この手順で取得した元データをそのまま解析した場合、講習会中に得られる結果とは一致しません。
+
 ```zsh
 brew install wget coreutils
 
@@ -269,4 +273,28 @@ nextflow run nf-core/differentialabundance \
   --feature_length_matrix /Users/binds2026/workshop/results/salmon/salmon.merged.gene_lengths.tsv \
   --gtf /Users/binds2026/ref/gencode.vM39.annotation.gtf.gz \
   --outdir /Users/binds2026/workshop/DEG
+```
+
+---
+
+## 6. 結果の確認
+
+解析が完了したら、主に次のファイルを確認します。
+
+| ファイル | 内容 |
+| --- | --- |
+| `/Users/binds2026/workshop/results/multiqc/multiqc_report.html` | `nf-core/rnaseq` の QC レポート |
+| `/Users/binds2026/workshop/results/salmon/salmon.merged.gene_counts.tsv` | 遺伝子ごとのカウントテーブル |
+| `/Users/binds2026/workshop/DEG/report/contrasts/study_differentialabundance_report.html` | 発現変動解析の HTML レポート |
+| `/Users/binds2026/workshop/DEG/tables/differential/contrasts/stress_vs_control_study.deseq2.results.tsv` | DESeq2 の結果テーブル |
+
+HTML ファイルは Finder でダブルクリックするとブラウザで開けます。
+TSV ファイルは表形式のテキストファイルで、遺伝子ごとの発現量や発現変動解析の結果が入っています。
+
+ファイルが作成されているか確認する場合は、次のように出力先を見ます。
+
+```zsh
+ls /Users/binds2026/workshop/results/salmon
+ls /Users/binds2026/workshop/DEG/report/contrasts
+ls /Users/binds2026/workshop/DEG/tables/differential/contrasts
 ```
